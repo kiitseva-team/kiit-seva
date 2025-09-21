@@ -1,267 +1,137 @@
-# School Management System - Complete Project Structure
-
-## 📁 Root Directory Structure
-
-```
 school-management-system/
 │
-├── 📁 assets/
-│   ├── 📁 css/
-│   │   ├── bulma.min.css                # Bulma CSS Framework
-│   │   ├── custom.css                   # Custom styles & overrides
-│   │   ├── dashboard.css                # Dashboard-specific styles
-│   │   ├── auth.css                     # Login/Signup styles
-│   │   └── responsive.css               # Mobile responsiveness
+├── 📁 app/
+│   ├── 📁 config/
+│   │   ├── config.php
+│   │   ├── database.php
+│   │   └── constants.php
 │   │
-│   ├── 📁 js/
-│   │   ├── main.js                      # Core JavaScript functions
-│   │   ├── auth.js                      # Authentication handling
-│   │   ├── dashboard.js                 # Dashboard interactions
-│   │   ├── booking.js                   # Booking system logic
-│   │   ├── tracking.js                  # Vehicle tracking
-│   │   ├── feedback.js                  # Feedback system
-│   │   ├── charts.js                    # Chart.js configurations
-│   │   └── notifications.js             # Toast notifications
+│   ├── 📁 controllers/
+│   │   ├── AuthController.php
+│   │   ├── StudentController.php
+│   │   ├── TeacherController.php
+│   │   ├── StaffController.php
+│   │   └── ApiController.php
 │   │
-│   ├── 📁 img/
-│   │   ├── logo.png                     # Site logo
-│   │   ├── hero-image.jpg               # Landing page hero
-│   │   ├── favicon.ico                  # Site favicon
-│   │   ├── avatar-placeholder.png       # Default user avatar
-│   │   ├── 📁 avatars/                  # User profile images
-│   │   ├── 📁 vehicles/                 # Vehicle images
-│   │   └── 📁 backgrounds/              # Background images
+│   ├── 📁 models/
+│   │   ├── User.php
+│   │   ├── Booking.php
+│   │   ├── Vehicle.php
+│   │   └── Feedback.php
 │   │
-│   └── 📁 uploads/
-│       ├── 📁 documents/                # Document uploads
-│       ├── 📁 profile_images/           # User profile uploads
-│       └── 📁 temp/                     # Temporary files
+│   ├── 📁 views/
+│   │   ├── 📁 layouts/
+│   │   │   ├── header.php
+│   │   │   └── footer.php
+│   │   │
+│   │   ├── 📁 auth/
+│   │   │   ├── login.php
+│   │   │   └── signup.php
+│   │   │
+│   │   ├── 📁 student/
+│   │   │   ├── dashboard.php
+│   │   │   ├── book_teacher.php
+│   │   │   └── my_bookings.php
+│   │   │
+│   │   ├── 📁 teacher/
+│   │   │   ├── dashboard.php
+│   │   │   ├── availability.php
+│   │   │   └── student_requests.php
+│   │   │
+│   │   ├── 📁 staff/
+│   │   │   ├── dashboard.php
+│   │   │   ├── manage_users.php
+│   │   │   └── manage_bookings.php
+│   │   │
+│   │   └── 📁 errors/
+│   │       └── 404.php
+│   │
+│   ├── 📁 core/
+│   │   ├── Database.php
+│   │   ├── Auth.php
+│   │   ├── Router.php
+│   │   └── Session.php
+│   │
+│   └── 📁 middleware/
+│       ├── AuthMiddleware.php
+│       ├── AdminMiddleware.php
+│       └── CsrfMiddleware.php
 │
-├── 📁 includes/
-│   ├── db.php                           # Database connection & class
-│   ├── auth.php                         # Authentication functions
-│   ├── header.php                       # Common header component
-│   ├── footer.php                       # Common footer component
-│   ├── security.php                     # Security functions (CSRF, validation)
-│   ├── permissions.php                  # Role-based permissions
-│   ├── session_handler.php              # Session management
-│   ├── email.php                        # Email functionality
-│   └── helpers.php                      # Utility helper functions
-│
-├── 📁 pages/
-│   ├── home.php                         # Landing/Home page
-│   ├── login.php                        # Login page
-│   ├── signup.php                       # Registration page
-│   ├── 404.php                          # Error 404 page
-│   ├── profile.php                      # User profile page
-│   ├── settings.php                     # User settings
+├── 📁 public/
+│   ├── 📁 assets/
+│   │   ├── 📁 css/
+│   │   │   ├── main.css
+│   │   │   └── dashboard.css
+│   │   │
+│   │   ├── 📁 js/
+│   │   │   ├── main.js
+│   │   │   ├── dashboard.js
+│   │   │   └── booking.js
+│   │   │
+│   │   └── 📁 img/
+│   │       ├── logo.png
+│   │       ├── favicon.ico
+│   │       └── 📁 avatars/
 │   │
-│   ├── 📁 student/
-│   │   ├── student_dashboard.php        # Student main dashboard
-│   │   ├── book_teacher.php             # Teacher booking interface
-│   │   ├── my_bookings.php              # Student's booking history
-│   │   ├── vehicle_tracking.php         # Vehicle tracking page
-│   │   └── assignments.php              # Student assignments
+│   ├── 📁 uploads/
+│   │   ├── 📁 documents/
+│   │   ├── 📁 profile_images/
+│   │   └── 📁 temp/
 │   │
-│   ├── 📁 teacher/
-│   │   ├── teacher_dashboard.php        # Teacher main dashboard
-│   │   ├── my_bookings.php              # Teacher's bookings
-│   │   ├── availability.php             # Set availability
-│   │   ├── student_requests.php         # Pending booking requests
-│   │   └── earnings.php                 # Teacher earnings page
-│   │
-│   ├── 📁 staff/
-│   │   ├── staff_dashboard.php          # Staff/Admin dashboard
-│   │   ├── manage_users.php             # User management
-│   │   ├── manage_bookings.php          # Booking management
-│   │   ├── manage_vehicles.php          # Vehicle management
-│   │   ├── reports.php                  # System reports
-│   │   └── system_settings.php          # System configuration
-│   │
-│   └── 📁 common/
-│       ├── feedback.php                 # Feedback form/view
-│       ├── notifications.php            # User notifications
-│       └── help.php                     # Help/Support page
+│   ├── index.php
+│   └── .htaccess
 │
 ├── 📁 api/
-│   ├── 📁 auth/
-│   │   ├── login.php                    # Login API endpoint
-│   │   ├── logout.php                   # Logout handler
-│   │   ├── signup.php                   # Registration API
-│   │   ├── forgot_password.php          # Password reset
-│   │   └── verify_email.php             # Email verification
-│   │
-│   ├── 📁 bookings/
-│   │   ├── create.php                   # Create booking
-│   │   ├── update.php                   # Update booking
-│   │   ├── cancel.php                   # Cancel booking
-│   │   ├── approve.php                  # Approve booking (teacher)
-│   │   ├── list.php                     # Get bookings list
-│   │   └── availability.php             # Check teacher availability
-│   │
-│   ├── 📁 users/
-│   │   ├── profile.php                  # Get/Update profile
-│   │   ├── list.php                     # Users listing (admin)
-│   │   ├── create.php                   # Create new user
-│   │   ├── update.php                   # Update user info
-│   │   └── delete.php                   # Delete user
-│   │
-│   ├── 📁 vehicles/
-│   │   ├── track.php                    # Vehicle tracking API
-│   │   ├── list.php                     # Vehicle listing
-│   │   ├── update_location.php          # Update vehicle location
-│   │   └── status.php                   # Vehicle status
-│   │
-│   ├── 📁 feedback/
-│   │   ├── submit.php                   # Submit feedback
-│   │   ├── list.php                     # Get feedback list
-│   │   └── respond.php                  # Respond to feedback
-│   │
-│   ├── 📁 dashboard/
-│   │   ├── student_data.php             # Student dashboard data
-│   │   ├── teacher_data.php             # Teacher dashboard data
-│   │   ├── staff_data.php               # Staff dashboard data
-│   │   └── charts_data.php              # Charts and analytics data
-│   │
-│   └── 📁 common/
-│       ├── upload.php                   # File upload handler
-│       ├── search.php                   # Global search
-│       ├── notifications.php            # Push notifications
-│       └── export.php                   # Data export functionality
+│   ├── auth.php
+│   ├── bookings.php
+│   ├── users.php
+│   └── vehicles.php
 │
-├── 📁 config/
-│   ├── config.php                       # Application configuration
-│   ├── database.php                     # Database configuration
-│   ├── mail.php                         # Email configuration
-│   └── constants.php                    # Application constants
-│
-├── 📁 utils/
-│   ├── helpers.php                      # Helper functions
-│   ├── validators.php                   # Input validation
-│   ├── formatters.php                   # Data formatting
-│   ├── sanitizers.php                   # Data sanitization
-│   └── file_handler.php                 # File handling utilities
-│
-├── 📁 sql/
-│   ├── schema.sql                       # Complete database schema
-│   ├── sample_data.sql                  # Sample/demo data
-│   ├── migrations/                      # Database migrations
-│   │   ├── 001_initial_schema.sql
-│   │   ├── 002_add_vehicle_tracking.sql
-│   │   └── 003_add_notifications.sql
-│   └── procedures/                      # Stored procedures
-│       ├── booking_procedures.sql
-│       └── reporting_procedures.sql
-│
-├── 📁 logs/
-│   ├── error.log                        # Application errors
-│   ├── access.log                       # Access logs
-│   ├── booking.log                      # Booking activities
-│   └── security.log                     # Security events
+├── 📁 storage/
+│   ├── 📁 logs/
+│   │   ├── app.log
+│   │   └── security.log
+│   │
+│   └── 📁 cache/
+│       └── views/
 │
 ├── 📁 tests/
-│   ├── unit/                            # Unit tests
-│   ├── integration/                     # Integration tests
-│   └── api/                             # API tests
+│   ├── Unit/
+│   ├── Integration/
+│   └── Api/
 │
-├── 📁 docs/
-│   ├── API.md                           # API documentation
-│   ├── SETUP.md                         # Setup instructions
-│   ├── USER_GUIDE.md                    # User manual
-│   └── DEPLOYMENT.md                    # Deployment guide
+├── 📁 database/
+│   ├── schema.sql
+│   ├── seeds.sql
+│   └── 📁 migrations/
+│       ├── 001_initial_schema.sql
+│       └── 002_add_vehicle_tracking.sql
 │
-├── 📄 Root Files
-├── index.php                            # Main entry point & router
-├── .htaccess                            # Apache configuration
-├── .env                                 # Environment variables
-├── .env.example                         # Environment template
-├── .gitignore                           # Git ignore rules
-├── composer.json                        # PHP dependencies
-├── package.json                         # Node.js dependencies
-├── README.md                            # Project documentation
-├── LICENSE                              # License information
-├── robots.txt                           # SEO robots file
-└── sw.js                                # Service Worker (PWA)
-```
+├── 📁 vendor/ (auto-generated by Composer)
+│
+├── .env
+├── .env.example
+├── .gitignore
+├── composer.json
+├── composer.lock
+├── package.json
+└── README.md
+Key Improvements:
+MVC Architecture: Organized into proper Models, Views, and Controllers
 
-## 🎯 Key Features & Organization
+Separation of Concerns: Public assets are in /public for better security
 
-### **1. Authentication System**
-- **Multi-role support**: Student, Teacher, Staff, Admin
-- **Secure login/logout**: Password hashing, session management
-- **Password recovery**: Email-based reset system
-- **Email verification**: Optional account verification
+Simplified API Structure: Consolidated API endpoints into logical files
 
-### **2. Role-Based Dashboards**
-- **Student Dashboard**: Bookings, tracking, assignments
-- **Teacher Dashboard**: Schedule, requests, earnings
-- **Staff Dashboard**: User management, system oversight
-- **Admin Panel**: Complete system control
+Middleware Support: Added middleware for authentication and security
 
-### **3. Booking System**
-- **Teacher booking**: Subject-based teacher selection
-- **Availability management**: Teachers set their schedules
-- **Real-time slots**: Dynamic availability checking
-- **Approval workflow**: Teacher approval system
+Core Components: Centralized core functionality in /app/core
 
-### **4. Vehicle Tracking**
-- **Real-time GPS**: Live location updates
-- **Route optimization**: Efficient route planning
-- **Student notifications**: Arrival/departure alerts
-- **Driver management**: Driver assignment system
+Storage Optimization: Consolidated logs and cache in /storage
 
-### **5. Communication**
-- **Feedback system**: Multi-directional feedback
-- **Notifications**: Real-time push notifications
-- **Messaging**: Internal messaging system
-- **Announcements**: System-wide announcements
+Database Management: All database-related files in /database
 
-### **6. Administrative Tools**
-- **User management**: CRUD operations for all users
-- **Booking oversight**: Manage all bookings
-- **Vehicle management**: Fleet management tools
-- **Reports & Analytics**: Comprehensive reporting
-- **System settings**: Configurable parameters
+Vendor Management: Composer dependencies in /vendor
 
-### **7. Technical Features**
-- **Responsive design**: Mobile-first approach
-- **API-first architecture**: RESTful APIs
-- **Security**: CSRF protection, input validation
-- **Performance**: Optimized queries, caching
-- **PWA ready**: Service worker implementation
-- **File management**: Secure file uploads
-- **Database**: Structured with migrations
-- **Logging**: Comprehensive activity logging
+This structure is more maintainable, follows modern PHP development practices, and provides better security by separating public-facing files from application logic.
 
-## 🔧 Technology Stack
-
-### **Frontend**
-- **Framework**: Bulma CSS
-- **Icons**: Font Awesome
-- **JavaScript**: Vanilla JS + jQuery
-- **Charts**: Chart.js for analytics
-- **Maps**: Google Maps API for tracking
-
-### **Backend**
-- **Language**: PHP 7.4+
-- **Database**: MySQL 8.0+
-- **Architecture**: MVC-inspired structure
-- **Security**: Modern PHP security practices
-- **Email**: PHPMailer for email functionality
-
-### **Development**
-- **Version Control**: Git
-- **Dependencies**: Composer (PHP), NPM (JS)
-- **Environment**: Docker support ready
-- **Testing**: PHPUnit for unit tests
-
-## 🚀 Quick Start
-
-1. **Clone the repository**
-2. **Configure database** in `config/database.php`
-3. **Import SQL schema** from `sql/schema.sql`
-4. **Set permissions** for upload directories
-5. **Configure email** settings for notifications
-6. **Access via web browser** and create admin account
-
-This structure provides a solid foundation for a comprehensive school management system with room for future enhancements and scalability.
