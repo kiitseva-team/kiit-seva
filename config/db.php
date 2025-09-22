@@ -12,6 +12,7 @@ class Database {
     private $dbname = DB_NAME;
     private $dbh;
     private $error;
+    private $stmt;
 
     public function __construct() {
         // Set DSN
