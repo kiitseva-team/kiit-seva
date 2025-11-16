@@ -9,29 +9,53 @@ if (!isset($_SESSION['id']) || $_SESSION['role'] != 'student') {
     exit();
 }
 
-$sql = "SELECT t.id, t.fname, t.lname, t.subject, t.email, t.phone
+// Get search query if provided
+$search = isset($_GET['search']) ? mysqli_real_escape_string($conn, trim($_GET['search'])) : '';
+
+// Build SQL query with optional search
+$sql = "SELECT 
+            t.id, 
+            t.fname, 
+            t.lname, 
+            t.subject, 
+            t.email, 
+            t.phone,
+            ts.chamber_no,
+            ts.bio,
+            ts.available_slots
         FROM teachers t
-        ORDER BY t.fname, t.lname";
+        LEFT JOIN teacher_slots ts ON t.id = ts.teacher_id";
+
+if (!empty($search)) {
+    $sql .= " WHERE (t.fname LIKE '%$search%' 
+              OR t.lname LIKE '%$search%' 
+              OR t.subject LIKE '%$search%'
+              OR CONCAT(t.fname, ' ', t.lname) LIKE '%$search%')";
+}
+
+$sql .= " ORDER BY t.fname, t.lname";
 
 $result = mysqli_query($conn, $sql);
 
-$teachers = [];
-while ($row = mysqli_fetch_assoc($result)) {
-    $teachers[] = $row;
+if (!$result) {
+    echo json_encode(['success' => false, 'message' => 'Database query failed: ' . mysqli_error($conn)]);
+    mysqli_close($conn);
+    exit();
 }
 
-$db_path = __DIR__ . '/../bookings.db';
-$pdo = new PDO("sqlite:$db_path");
-$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-foreach ($teachers as &$teacher) {
-    $stmt = $pdo->prepare("SELECT chamber_no, available_slots, bio FROM teacher_slots WHERE teacher_id = ?");
-    $stmt->execute([$teacher['id']]);
-    $slot_data = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-    $teacher['chamber_no'] = $slot_data['chamber_no'] ?? null;
-    $teacher['available_slots'] = $slot_data['available_slots'] ?? '{}';
-    $teacher['bio'] = $slot_data['bio'] ?? null;
+$teachers = [];
+while ($row = mysqli_fetch_assoc($result)) {
+    $teachers[] = [
+        'id' => $row['id'],
+        'fname' => $row['fname'],
+        'lname' => $row['lname'],
+        'subject' => $row['subject'],
+        'email' => $row['email'],
+        'phone' => $row['phone'],
+        'chamber_no' => $row['chamber_no'] ?? 'Not set',
+        'bio' => $row['bio'] ?? '',
+        'available_slots' => $row['available_slots'] ?? '{}'
+    ];
 }
 
 echo json_encode(['success' => true, 'teachers' => $teachers]);
